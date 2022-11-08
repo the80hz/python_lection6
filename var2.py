@@ -6,22 +6,23 @@
 """
 import concurrent.futures
 import math
+from typing import Tuple
 
 
-def calculate_i_number(i: float, koef: float) -> float:
-    # print((i-koef)*(i-koef))
-    return (i-koef)*(i-koef)
+def calculate_quadratic_equation(_a: float, _b: float, _c: float) -> int | float | tuple[float, float]:
+    d = _b * _b - 4 * _a * _c
+    if d < 0:
+        return 0
+    elif d == 0:
+        return -_b / (2 * _a)
+    else:
+        return (-_b + math.sqrt(d)) / (2 * _a), (-_b - math.sqrt(d)) / (2 * _a)
 
 
 if __name__ == '__main__':
     a = float(input(float))
     b = float(input(float))
     c = float(input(float))
-    koef = (a+b+c)/3.0
-    result = 0.0
-    items = [(a, koef), (b, koef), (c, koef)]
-    with concurrent.futures.ProcessPoolExecutor() as p:
-        result_sum = p.starmap(calculate_i_number, items)
-    for i in result_sum:
-        result += i
-    print(math.sqrt(result/2))
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        result = executor.submit(calculate_quadratic_equation, a, b, c)
+        print(result.result())
