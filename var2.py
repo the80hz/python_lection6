@@ -6,7 +6,6 @@
 """
 import concurrent.futures
 import math
-from typing import Tuple
 
 
 def calculate_quadratic_equation(_a: float, _b: float, _c: float) -> int | float | tuple[float, float]:

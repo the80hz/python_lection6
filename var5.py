@@ -8,18 +8,17 @@
 import multiprocessing
 
 
-def calculate_i_number(i: float, koef: float) -> float:
-    # print((i-koef)*(i-koef))
-    return (i-koef)*(i-koef)
+def calculate_i_number(_i: float, _k: float) -> float:
+    return (_i - _k) * (_i - _k)
 
 
 if __name__ == '__main__':
     x = float(input(float))
     y = float(input(float))
     z = float(input(float))
-    koef = (x+y+z)/3.0
+    k = (x + y + z) / 3.0
     result = 0.0
-    items = [(x, koef), (y, koef), (z, koef)]
+    items = [(x, k), (y, k), (z, k)]
     with multiprocessing.Pool(3)as p:
         result_sum = p.starmap(calculate_i_number, items)
     for i in result_sum:
