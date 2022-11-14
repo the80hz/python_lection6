@@ -1,11 +1,11 @@
 """
-Используя модуль concurrent.futures,
-распараллельте на процессы процедуру вычисления квадратного корня уравнения.
+Распараллельте на процессы процедуру вычисления квадратного корня уравнения.
 Написанное приложение должно быть консольным.
 Аргументы командной строки – коэффициенты квадратного уравнения ax^2+bx+c=0.
 """
-import concurrent.futures
 import math
+import threading
+from datetime import datetime
 
 
 def calculate_quadratic_equation(_a: float, _b: float, _c: float) -> int | float | tuple[float, float]:
@@ -22,6 +22,9 @@ if __name__ == '__main__':
     a = float(input(float))
     b = float(input(float))
     c = float(input(float))
-    with concurrent.futures.ProcessPoolExecutor() as executor:
-        result = executor.submit(calculate_quadratic_equation, a, b, c)
-        print(result.result())
+    start_time = datetime.now()
+    th_name = threading.current_thread().name
+    print(f'{th_name}: запущен...')
+    result = calculate_quadratic_equation(a, b, c)
+    print(f'Результат: {result}')
+    print(datetime.now() - start_time)
